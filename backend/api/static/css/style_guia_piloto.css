@@ -1,0 +1,257 @@
+.guia-piloto-container {
+    width: 100%;
+    height: 100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.card-container {
+    width: 90%;
+    margin: 2vh auto;
+    background-color: rgba(0, 0, 0, 0.367);
+    border: 2px solid var(--verde-ii);
+    border-radius: 10px;
+}
+
+label {
+    padding-left: 70px;
+}
+
+.info-guia-sup {
+    width: 50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: auto 5% 20px;
+}
+
+.info-guia-sup p {
+    height: 5px;
+}
+
+h3 {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.guia-piloto {
+    /* width: 90%; */
+    display: none !important;
+    margin: auto;    
+}
+
+.guia-piloto p:first-of-type {
+    grid-column: 1 / span 2;
+    margin: 0 5% 10px;
+    text-align: left;
+}
+
+.show {
+    display: grid !important;
+}
+
+.btn-show-form {
+    margin: auto 5% 20px;
+}
+
+.btn-guia-piloto {
+    width: 90%;
+    grid-column: 1 / span 2;
+    margin: 0 auto 20px;
+    margin: 20px auto 40px;
+}
+.btn-show-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+/* .checkbox-guia{
+    padding-top: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0px;
+    margin: 0 0 0 5px;
+    vertical-align: middle;
+}
+
+form p:last-of-type {
+    display: inline-flex !important;
+    flex-direction: row;
+    align-items: center;
+}
+form p label {
+    width: fit-content !important;
+} */
+
+.drop-area {
+    width: 80%;
+    display: flex;
+    flex-direction: column; /* Keep icon and text in a column */
+    align-items: center;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    margin: 20px auto;
+    position: relative;
+    grid-column: 1 / span 2;
+}
+
+.drop-area p {
+    width: fit-content;
+    margin: auto !important;
+}
+
+.upload-icon {
+    width: 30px; /* Set the width of the icon */
+    height: 30px; /* Set the height of the icon */
+    margin-bottom: 10px; /* Spacing below the icon */
+}
+
+.drag-over {
+    border-color: #4caf50; /* Change border color when dragging over */
+    background-color: #e8f5e9; /* Light background when hovering */
+}
+
+.img-container {
+    display: inline-block;
+    position: relative;
+    margin: 5px;
+}
+
+.remove-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #ff4d4d;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.remove-btn:hover {
+    opacity: 1;
+}
+
+.btn-upload {
+    padding: 8px 22px;
+    background: var(--verde-ii);
+    border: none;
+    border-radius: 3px;
+}
+input[type="file"]{
+    display: none;
+}
+
+label.label-upload {
+    display: block;
+    width: 150px;
+    /* height: 49px; */
+    padding: 8px 22px;
+    margin: 15px auto;
+    text-align: center;
+    text-decoration: none;
+    background: #129EEE;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.file-label {
+    width: fit-content !important;
+    color: #007bff;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0px !important;
+    font-size: 16px;
+    /* display: inline; */
+}
+
+.file-label:hover {
+    color: #0056b3;
+}
+.drop-area p {
+    /* display: inline !important; Keep text inline */
+    width: fit-content !important;
+    font-size: 16px;
+    margin: 0;
+}
+
+#gallery1, #gallery2, #gallery3, #gallery4 {
+    width: 80%;
+    margin: 0 auto;
+}
+img {
+    margin: 0px !important;
+}
+
+.grid-prod-dosag {
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    grid-column: 1 / span 2;
+}
+.grid-prod-dosag p:first-of-type {
+    grid-column: 1;
+    grid-row: 1;
+}
+.grid-prod-dosag p:nth-child(2) {
+    grid-column: 2;
+}
+.grid-prod-dosag p:last-of-type {
+    grid-column: 3;
+}
+.grid-prod-dosag p {
+    width: 100%;
+    margin: 0;
+}
+
+.preview-image {
+    height: 200px;
+    margin: 5px;
+}
+@media screen and (max-width: 900px) {
+} 
+
+@media screen and (max-width: 700px) {
+    .info-guia-sup {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        font-size: 13px;
+    }
+
+    h3 {
+        font-size: 14px;
+    }
+
+    .btn-show-form {
+        height: 30px !important;
+        font-size: 13px;
+        padding: 5px 10px;
+    }
+    .btn-guia-piloto {
+        width: 80%;
+    }
+    .show {
+        display: flex !important;
+    }
+    p {
+        font-size: 13px;
+    }
+    .guia-piloto-container {
+        padding-bottom: 70px;
+    }
+}

@@ -1,0 +1,235 @@
+{% extends "page_r1.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/style_guia_aplicacao.css' %}">
+{% endblock %}
+
+{% block main %}
+
+<div class="guia-aplic-container">
+    {% if messages %}
+        {% for message in messages %}
+            {% if 'msg_guia' in message.tags %}
+                <div class="message">
+                    <image src="{% static 'images/success.png' %}" class="success"></image>
+                    <p>{{ message }}</p>
+                    <image src="{% static 'images/close.png' %}" class="close"></image>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <div class="form-container">
+        <h1 class="title">Guia de Aplicação</h1>
+        <form id="" class="grid-container" action="{% url 'cadastro_guia' %}" method="POST">
+            {% csrf_token %}
+            {% for field in form %} 
+                {% if field.name != 'talhao' %}         
+                <p>
+                    {{ field.label_tag }}
+                    {{ field }}
+                </p>
+                {% endif %}
+            {% endfor %}
+            {{ formReceita.management_form }}
+            <div id="formset-container">
+                {% for form in formReceita %}
+                       
+                        {{ form }}
+                    
+                {% endfor %}
+            </div>
+            <div id="receita-formset">
+                {% for form in formset %}
+                    {{ form.as_p }}
+                {% endfor %}    
+            </div>
+            
+            <div class="checkboxes-container">
+                <label for="checkboxes-field">Talhões *</label>
+                <div name="checkboxes-field" id="checkboxes-field" class="checkboxes-field"></div>
+            </div>
+            <input type="hidden" name="cod_aplicacao" id="cod_aplicacao" value="{{ id_guia }}">
+            <button type="submit" class="btn-guia">Salvar</button>
+        </form>
+    </div>
+</div>
+<script src="{% static 'js/dynamic_fields_guia_sup.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    
+    const farmId = document.getElementById('farm_id');
+    const talhao = document.getElementById('talhao');
+    const area = document.getElementById('area');
+    const product = document.getElementById('produto');
+    const dosagem = document.getElementById('dosagem');
+    const talhaoCheckboxes = document.querySelector('#checkboxes-field');
+    
+    let serializedData = "{{ serialized_data | safe }}";
+    let serializedDataAr = Object.values(serializedData);
+
+    talhaoCheckboxes.addEventListener('change', function(event) {
+    
+    if (event.target && event.target.matches('input[name="talhao"]')) {
+        fetchSelectedTalhaoArea();
+        }
+    });
+
+    let currentPath = window.location.pathname;
+    farmId.addEventListener('change', function() {  
+        const farmIdValue = this.value;
+        
+        if (!currentPath.includes('/edit/')) {
+            area.value = 0;
+        }
+        
+        fetch(`/fetch-data-guia-farm/${farmIdValue}/`)
+            .then(response => response.json())
+            .then(data => {
+                let options = '';
+                data.children.forEach(function(child) {
+                    options += '<div>';
+                    options += '<input type="checkbox" id="child-' + child.id_talhao + '" name="talhao" value="' + child.id_talhao + '"';
+                    console.log(serializedDataAr)
+                    if (serializedData.includes(String(child.id_talhao))) {
+                        options += ' checked';
+                    }
+                    options += '>';
+                    options += '<label for="child-' + child.id_talhao + '">' + child.id_talhao + '</label>';
+                    options += '</div>';
+                })
+                talhaoCheckboxes.innerHTML = options;
+                
+                if (serializedData.includes(talhaoCheckboxes.value)) {
+                    talhaoCheckboxes.checked = true;
+                }
+
+                checkbox = document.querySelectorAll('input[type="checkbox"][name="talhao"]');
+                let event2 = new Event('change');
+                
+                checkbox.forEach(function(checkbox) {
+                    checkbox.dispatchEvent(event2);
+                });
+            })
+            .catch(error => console.error('Error fetching children farm:', error));
+    });
+
+    //quando add produto sugerir dosagem
+    product.addEventListener('change', function() {
+        const prodIdValue = this.value;
+       
+        fetch(`/fetch-data-guia-prod/${prodIdValue}/`)
+            .then(response => response.json())
+            .then(data => {
+                // Clear current options
+                dosagem.innerHTML = '';
+                dosagem.value = data.dosagem;
+                dosagem.placeholder = data.dosagem;
+                }
+            )
+            .catch(error => console.error('Error fetching children prod:', error));
+    });
+
+    function fetchSelectedTalhaoArea() {
+        // Collect selected checkbox values
+        let selectedTalhao = [];
+        checkbox = document.querySelectorAll('input[type="checkbox"][name="talhao"]');
+        const checkboxes = document.querySelectorAll('input[name="talhao"]:checked');
+        checkboxes.forEach(function(checkbox) {
+            if (checkbox.checked) {
+                selectedTalhao.push(checkbox.value);
+            }
+        });
+
+        if (selectedTalhao.length > 0) {
+            fetch(`/fetch-data-guia-talhao/?selected_talhao=${selectedTalhao}`)
+            .then(response => response.json())
+            .then(data => {
+                area.innerHTML = '';  
+
+                let totalArea = 0;
+                data.children.forEach(function(child) {
+                    totalArea += parseFloat(child.area);
+                });
+
+                area.value = totalArea;
+                area.placeholder = totalArea;
+            })
+            .catch(error => {
+                console.error('Error fetching area:', error);
+            });
+        } else {
+            document.getElementById('area').innerHTML = '';
+        }
+    }
+
+const produtoSelect = document.querySelector('select[name="id_receita"]');
+const formsetContainer = document.getElementById('receita-formset');
+produtoSelect.addEventListener('change', function() {addProduto()})
+
+// modo edicao 
+if (currentPath.includes('/edit/')) {
+    
+    let productId = currentPath.split('/edit/')[1];
+
+    let field1 = document.getElementById('field1');
+
+    var event = new Event('change');
+    farmId.dispatchEvent(event);
+    
+    var event2 = new Event('change');
+    checkbox = document.querySelectorAll('input[type="checkbox"][name="talhao"]');
+    
+    var event3 = new Event('change')
+    const produtoSelect = document.querySelector('select[name="id_receita"]');
+    console.log(produtoSelect)
+    // produtoSelect.dispatchEvent(event3)
+}
+
+//receita
+// Function to update the formset based on selected products
+function addProduto() {
+    const produtoSelect = document.querySelector('select[name="id_receita"]');
+    const selectedProducts = Array.from(produtoSelect.selectedOptions);
+    const numberOfSelectedProducts = selectedProducts.length;
+    const totalForms = document.querySelector('[name="form-TOTAL_FORMS"]');
+    console.log(selectedProducts, 'n', numberOfSelectedProducts)
+    formsetContainer.innerHTML = '';
+    
+    for (let i = 0; i < numberOfSelectedProducts; i++) {
+        console.log(i)
+        const form = document.createElement('div');
+        form.classList.add('product-form');
+        form.innerHTML = `
+            <label class="nome-produto">${selectedProducts[i].text}</label>
+            <div class="container-produtos">
+            <select class="select-produto" name="form-${i}-id_produto">
+                <option value="${selectedProducts[i].value}" selected>${selectedProducts[i].text}</option>
+            </select>`
+            
+            if(i == 0) {
+                form.innerHTML += `<label class="label-product">Dosagem (L/ha)
+                    <input type="number" class="inputs" name="form-${i}-dosagem">
+                    </label>`
+            } else {
+                form.innerHTML += `<input type="number" class="inputs" name="form-${i}-dosagem">`
+            }
+                
+            
+            if(i == 0) {
+            form.innerHTML += `<label class="label-product">Taxa de Aplicação (L)
+                <input type="number" class="inputs" name="form-${i}-taxa_aplicacao">
+                </label>`
+                
+            } else {
+                form.innerHTML += `<input type="number" class="inputs" name="form-${i}-taxa_aplicacao">`
+            }
+            form.innerHTML += `</div>`
+        
+        formsetContainer.appendChild(form);
+        totalForms.value = numberOfSelectedProducts
+    }
+};
+})
+</script>
+{% endblock %}

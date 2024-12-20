@@ -1,0 +1,112 @@
+.container-pilot-reg {
+    width: 87vw;
+    height: 120vh;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-column: 2;
+    grid-row: 2;
+    overflow-y: auto;
+}  
+
+.checkbox-activity::before{
+    content: 'Piloto Ativo?';
+    margin-left: 50px;
+    color: white;
+    font-size: 14px;
+}
+
+.checkbox-activity {
+    padding-top: 5px;
+    display: flex;               
+    justify-content: flex-start;     
+    align-items: center; 
+    gap: 0px;                       
+    margin: 10px 0 0 0;                                  
+}
+
+.input-container {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.input-container label {
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+}
+
+.btn-container {
+    grid-column: 1/ span 2;
+    text-align: center;
+    padding-top: 20px;
+}
+.btn-pilot {
+    width: 90%;
+}
+
+label {
+    padding-left: 50px; 
+}
+
+@media screen and (max-width: 900px) {
+
+    .container {
+        display: block;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .my-btn {
+        width: 80%;
+    }
+
+    .top-block {
+        background: #0EB735;
+        text-align: right;
+    }  
+    .container-pilot-reg {
+        width: 100vw;
+        margin: .5vh 0;
+        display: block;
+        white-space: nowrap;
+    } 
+} 
+
+@media screen and (max-width: 700px) {
+    .container {
+        display: block;
+    }
+
+    .container-pilot-reg {
+        width: 100vw;
+        margin: .5vh 0;
+    }
+
+    .form-container {
+        width: 90vw;
+        margin: 2vh auto;
+        padding: 10px 0 30px;
+        display: flex;
+        flex-direction: column;
+        grid-gap: 10px;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .my-btn {
+        width: 80%;
+    }
+    
+    .container-pilot-reg {
+        padding-bottom: 70px;
+    }
+}

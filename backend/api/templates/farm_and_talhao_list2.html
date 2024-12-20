@@ -1,0 +1,69 @@
+{% extends "page_r2.html" %}
+{%load static%}
+
+{% block extra_css_r2 %}
+<link rel="stylesheet" href="{% static 'css/style_x_list.css' %}">
+{% endblock %}
+
+{% block main_r2 %}
+
+<div class="list-container">
+    <div class="table-container">
+    <table class="mytable">
+        <caption>
+            Talhões Cadastrados
+        </caption>
+        <tr>
+            <th>Nome da Fazenda</th>
+            <th>Código do talhão</th>
+            <th>Responsável de Área</th>
+            <th>Área</th>
+        </tr>
+        {% for farm in parent_data %}
+            {% for talhao in farm.children %}
+                <tr>
+                    <td>{{ farm.parent.name }}</td>
+                    <td>{{ talhao.id_talhao }}</td>
+                    <td>{{ talhao.technician }}</td>
+                    <td>{{ talhao.area }} ha</td>
+                </tr>
+            {% endfor %}
+
+            <tr class="total">
+                <td>Total:</td>
+                <td></td>
+                <td></td>
+                <td>{{ farm.total_value }} ha</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
+    <!-- <div class="pagination">
+        <span class="step-links">
+            {% if talhao_list.has_previous %}
+                <a href="?page={{ talhao_list.previous_page_number }}">&laquo; previous</a>
+            {% endif %}
+    
+            {% for num in talhao_list.paginator.page_range %}
+            {% if talhao_list.number == num %}
+                <span class="dot active"></span>
+            {% else %}
+                <a href="?page={{ num }}" class="dot"></a>
+            {% endif %}
+            {% endfor %}
+    
+            {% if talhao_list.has_next %}
+                <a href="?page={{ talhao_list.next_page_number }}">next &raquo;</a>
+                
+            {% endif %}
+        </span>
+    </div> -->
+</div>
+
+{% endblock %}

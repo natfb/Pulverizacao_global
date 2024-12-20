@@ -1,0 +1,35 @@
+{% extends "page_r1.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/style_aeronave_registration.css' %}">
+{% endblock %}
+
+{% block main %}
+<div class="container-aeronave"> 
+    {% if messages %}
+        {% for message in messages %}
+            {% if 'msg_aeronave' in message.tags %}
+                <div class="message message-aero">
+                    <image src="{% static 'images/success.png' %}" class="success"></image>
+                    <p>{{ message }}</p>
+                    <image src="{% static 'images/close.png' %}" class="close"></image>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %} 
+    <div class="form-container form-container-one-col">
+        <h1 class="title">Cadastro de Aeronave</h1>
+        <form class="form" action="{% if pk %}{% url 'cadastro_aeronave_edit' pk=pk %}{% else %}{% url 'cadastro_aeronave' %}{% endif %}" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                <p>
+                    {{ field.label_tag }}
+                    {{ field }}
+                </p>
+            {% endfor %}
+            <button class="btn-aero" type="submit">Salvar</button>
+        </form>
+    </div>
+</div>  
+{% endblock %}

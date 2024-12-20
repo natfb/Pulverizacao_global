@@ -1,0 +1,143 @@
+{% extends "page_r2.html" %}
+{%load static%}
+
+{% block extra_css_r2 %}
+<link rel="stylesheet" href="{% static 'css/style_guia_piloto.css' %}">
+{% endblock %}
+
+{% block main_r2 %}
+
+<div class="guia-piloto-container">  
+    {% for guia in guias %}
+        <div class="card-container">
+            <h3>Guia de Aplicação {{ forloop.counter }}</h3>
+            <div class="info-guia-sup">
+                <p>Data: {{ guia.data | date:"d/m/Y H:i" }}</p>
+                <p>Fazenda: {{ guia.id_fazenda.name }}</p>
+                <p>Talhao: {{ guia.talhao }}</p>
+                <p>Responsável Global: {{ guia.id_responsavel_global.username }}</p>
+                <p>Área: {{ guia.area_aplicacao }} ha</p>
+                <p>Cultura: {{ guia.cultura }}</p>
+                <div class="grid-prod-dosag">
+                    <p>Produtos<br>
+                        {% for produto in guia.id_receita.all %}
+                            {{ produto.grupo_produto }} - {{ produto.nome_comercial }}{% if not forloop.last %}<br>{% endif %}
+                        {% endfor %} 
+                    </p>
+                    <p>Dosagem<br>{% for receita in guia.receita_set.all %}
+                        {{ receita.dosagem }} L/ha {% if not forloop.last %}<br>{% endif %}
+                    {% endfor %}</p>
+                    <p>Taxa de Aplicação<br>{% for receita in guia.receita_set.all %}
+                        {{ receita.taxa_aplicacao }}{% if not forloop.last %}<br>{% endif %}
+                    {% endfor %}</p>
+                </div>
+                <!-- <td>{% for produto in info.id_receita.all %}
+                        {{ produto.nome_comercial }}{% if not forloop.last %}<br>{% endif %}
+                    {% endfor %}
+                </td>
+                <td>{% for receita in info.receita_set.all %}
+                    {{ receita.dosagem }}{% if not forloop.last %}<br>{% endif %}
+                {% endfor %}</td>
+                <td>
+                    {% for receita in info.receita_set.all %}
+                        {{ receita.taxa_aplicacao }}{% if not forloop.last %}<br>{% endif %}
+                    {% endfor %}</td> -->
+            </div>
+        <div class="btn-show-container">
+            <button class="btn-show-form" data-target="form-{{ guia.cod_aplicacao }}" type="button">Preencher</button>
+        </div>
+        <form enctype="multipart/form-data" id="form-{{ guia.cod_aplicacao }}" class="form-odd form grid-container guia-piloto" method="POST" action="{% url 'guia_aplicacao_piloto' %}">
+            {% csrf_token %}
+            <p>Preencha as informações:</p>
+            {% for field in form %}
+                {% if field.name != 'id_aplicacao' and field.name != 'realizado'%}
+                    <p>
+                        {{ field.label_tag }}
+                        {{ field }}
+                    </p>
+                {% endif %}
+            {% endfor %}
+             
+            <div>
+            <div id="drop-area1" class="drop-area">
+                <img src="{% static 'images/upload.png' %}" alt="Upload Icon" class="upload-icon">
+                <p>Arraste e solte ou selecione as fotos da fazenda.</p>
+                <label class="label-upload" for="fileElem1">Escolher Arquivos</label>
+                <input type="file" id="fileElem1" name="ft_panoramica" multiple onchange="handleFiles(this.files, 'gallery1')">
+            </div>
+
+            <div id="gallery1">
+                {% for image in foto_panoramica %}
+                    <div class="img-container" data-id="{{ image.id }}">
+                        <img src="data:image/jpeg;base64,{{ image.foto }}" class="preview-image">
+                        <span class="remove-btn" onclick="removeExistingImageFarm(this)">&times;</span>
+                    </div>
+                {% endfor %}
+            </div>
+            </div>
+            
+            <div>
+            <div id="drop-area2" class="drop-area">
+                <img src="{% static 'images/upload.png' %}" alt="Upload Icon" class="upload-icon">
+                <p>Arraste e solte ou selecione as fotos dos produtos.</p>
+                <label for="fileElem2" class="label-upload">Escolher Arquivos</label> 
+                <input type="file" id="fileElem2" name="ft_produto" multiple onchange="handleFiles(this.files, 'gallery2')">
+            </div>
+
+            <div id="gallery2">
+                {% for image in foto_produto %}
+                    <div class="img-container" data-id="{{ image.id }}">
+                        <img src="data:image/jpeg;base64,{{ image.foto }}" class="preview-image">
+                        <span class="remove-btn" onclick="removeExistingImageProd(this)">&times;</span>
+                    </div>
+                {% endfor %}
+            </div> 
+            </div>
+            
+            <div>
+            <div id="drop-area3" class="drop-area">
+                <img src="{% static 'images/upload.png' %}" alt="Upload Icon" class="upload-icon">
+                <p>Arraste e solte ou selecione a foto do anemômetro.</p>
+                <label class="label-upload" for="fileElem3">Escolher Arquivos</label>
+                <input type="file" id="fileElem3" name="ft_cond_atmosferica" id="ft_cond_atmosferica" multiple onchange="handleFiles(this.files, 'gallery3')">
+            </div>
+            <div id="gallery3">
+                {% for image in foto_cond_at %}
+                    <div class="img-container" data-id="{{ image.id }}">
+                        <img src="data:image/jpeg;base64,{{ image.foto }}" class="preview-image">
+                        <span class="remove-btn" onclick="removeExistingImageCond(this)">&times;</span>
+                    </div>
+                {% endfor %}
+            </div>
+            </div>
+            
+            <div>
+            <div id="drop-area4" class="drop-area">
+                <img src="{% static 'images/upload.png' %}" alt="Upload Icon" class="upload-icon">
+                <p>Arraste e solte ou selecione a foto do trajeto do drone.</p>
+                <label class="label-upload" for="fileElem4">Escolher Arquivos</label>
+                <input class="btn-upload" type="file" id="fileElem4" name="ft_trajeto" multiple onchange="handleFiles(this.files, 'gallery4')">
+            </div>
+            <div id="gallery4">
+                {% for image in foto_trajeto %}
+                    <div class="img-container" data-id="{{ image.id }}">
+                        <img src="data:image/jpeg;base64,{{ image.foto }}" class="preview-image">
+                        <span class="remove-btn" onclick="removeExistingImageTraj(this)">&times;</span>
+                    </div>
+                {% endfor %}
+            </div>
+            </div>
+            <input type="hidden" name="images_to_delete_farm" id="images_to_delete_farm">
+            <input type="hidden" name="images_to_delete_prod" id="images_to_delete_prod">
+            <input type="hidden" name="images_to_delete_cond" id="images_to_delete_cond">
+            <input type="hidden" name="images_to_delete_traj" id="images_to_delete_traj">
+            <input type="hidden" name="id_aplicacao" value="{{ guia.cod_aplicacao }}">
+            <input type="hidden" name="realizada" value="True">
+            <button class="btn-guia-piloto" type="submit">Concluída</button> 
+        </form>
+        </div>
+        
+    {% endfor %}   
+</div>
+<script src="{% static 'js/image_gallery_guia_pil.js' %}"></script>
+{% endblock %}

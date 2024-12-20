@@ -1,0 +1,59 @@
+{% extends "page_r1.html" %}
+{%load static%}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/style_x_list.css' %}">
+{% endblock %}
+
+{% block main %}
+
+<div class="list-container">
+    <div class="table-container">
+    {% if parent_data %}
+    <table class="mytable">
+        <caption>
+            <div>
+                Talhões Cadastrados
+                <image class="show-edit-btn edit" src="{% static 'images/edit.png' %}" class="edit"> 
+            </div>
+        </caption>
+        <tr>
+            <th>Nome da Fazenda</th>
+            <th>Código do talhão</th>
+            <th>Responsável de Área</th>
+            <th>Área</th>
+        </tr>
+        {% for farm in parent_data %}
+            {% for talhao in farm.children %}
+                <tr>
+                    <td>{{ farm.parent.name }}</td>
+                    <td>{{ talhao.id_talhao }}</td>
+                    <td>{{ talhao.technician }}</td>
+                    <td>{{ talhao.area }} ha</td>
+                    <td><a class="edit-button" href="{% url 'cadastro_fazenda_edit_t' talhao.id_talhao %}">Editar</a></td>
+                </tr>
+            {% endfor %}
+
+            <tr class="total">
+                <td>Total:</td>
+                <td></td>
+                <td></td>
+                <td>{{ farm.total_value }} ha</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>Nenhum talhão cadastrado.</p>
+    {% endif %}
+    </div>
+</div>
+<script src="{% static 'js/edit_button.js' %}"></script>
+{% endblock %}

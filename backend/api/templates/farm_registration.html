@@ -1,0 +1,117 @@
+{% extends "page_r1.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/style_farm_registration.css' %}">
+{% endblock %}
+
+{% block main %}
+
+<div class="container-farm-reg">
+    {% if messages %}
+        {% for message in messages %}
+            {% if 'msg_farm' in message.tags %}
+                <div class="message">
+                    <image src="{% static 'images/success.png' %}" class="success"></image>
+                    <p>{{ message }}</p>
+                    <image src="{% static 'images/close.png' %}" class="close"></image>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <div class="form-container">
+        <div class="grid-container">
+            <form class="form-farm-talhao" action="{% if idf %}{% url 'cadastro_fazenda_edit_f' idf=idf %}{% else %}{% url 'cadastro_fazenda' %}{% endif %}" method="POST">
+                {% csrf_token %}
+                <h1 class="title">Cadastrar Fazenda</h1>
+                {% for field in form %}
+                    <p>
+                        {{ field.label_tag }}
+                        {{ field }}
+                    </p>
+                {% endfor %}
+        <!-- <h1 class="title">Cadastrar Fazenda</h1>
+                <label for="id_farm">Código da Fazenda *</label>
+                <input class="inputs" autofocus type="text" name="id_farm" id="id_farm" required><br>
+                <label for="name">Nome da Fazenda *</label>
+                <input class="inputs" type="text" name="name" id="name" required><br>
+                <label for="owner">Grupo/Proprietário *</label>
+                <input class="inputs" type="text" name="owner" id="owner" required><br>
+                <label for="city">Cidade *</label>
+                <input class="inputs" type="text" name="city" id="city" required><br>
+                <label for="state">Estado *</label>
+                <input class="inputs" type="text" name="state" id="state" required><br> -->
+                <br>
+                <button class="btn-farm" type="submit" name="submit-fazenda" value="Cadastrar">Salvar<br></button>
+            </form>
+            
+            <form class="form-farm-talhao" action="{% if idt %}{% url 'cadastro_fazenda_edit_t' idt %}{% else %}{% url 'cadastro_fazenda' %}{% endif %}" method="POST">
+                {% csrf_token %}
+            
+                <h1 class="title">Adicionar Talhão</h1>
+                <p>
+                <label for="farm">Código da Fazenda *</label>
+                <select id="farm" name="farm">
+                    {% if talhao %}
+                        <option value="{{ talhao.farm_id }}">{{ talhao.farm_id }} - {{ talhao.farm.name }}</option>
+                    {% elif item %}
+                    <option value="{{ item.id_farm }}">{{ item.id_farm }} - {{ item.name }}</option>
+                    {% else %}
+                        <option value="">Selecione a Fazenda</option>
+                        <!-- {% if farm_id.id is not None %}
+                            <option value="{{ farm_id.id }}">{{ farm_id.id }} - {{ farm_id.name }}</option>
+                        {% else %}
+                        {% endif %} -->
+                        {% for info in farm_info %}
+                            <option value="{{ info.id_farm }}">{{ info.id_farm }} - {{ info.name }}</option>
+                        {% empty %}
+                            <option>Não Há Fazendas Registradas.</option> 
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                </p>
+                {% for field in form_talhao %}
+                    {% if field.name != "farm" %}
+                        <p>
+                            {{ field.label_tag }}
+                            {{ field }}
+                        </p>
+                    {% endif %}
+                {% endfor %}
+                <p>
+                    <label class="label invisible-input" for="invisible-input">invisible text :)</label>
+                    <input class="inputs invisible-input" disabled="disabled" id="invisible-input">
+                </p>
+                <br>
+                <!-- <p>
+                <label for="id_talhao">Código do Talhão *</label>
+                <input class="inputs" type="number" name="id_talhao" id="id_talhao" required>
+                </p>
+                <p>
+                <label for="area">Área (em ha) *</label>
+                <input class="inputs" type="number" step="any" name="area" id="area" required>
+                </p>
+                <p>
+                <label for="cultura">Cultura</label>
+                <select id="cultura" name="cultura">
+                    <option value="">Selecione a Cultura</option>
+                    <option value="soja">Soja</option>
+                    <option value="milho">Milho</option>
+                    <option value="cana-de-açucar">Cana-de-açucar</option>
+                    <option value="algodao">Algodão</option>
+                </select>
+                </p>
+                <p>
+                <label for="technician">Responsável de Área</label>
+                <input class="inputs" type="text" name="technician" id="technician">
+                </p> -->
+                
+                <input class="btn-farm" type="submit" name="submit-talhao" value="Salvar">
+            </form>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/dynamic_fields_farm.js' %}">
+    
+</script>
+{% endblock %}

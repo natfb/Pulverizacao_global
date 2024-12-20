@@ -1,0 +1,233 @@
+.list-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    /* justify-content: space-between; */
+}
+.total {
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.142);
+}
+
+.mytable-aero {
+    width: 60% !important;
+}
+
+.true-class {
+    background-color: green;
+}
+
+.pending-class {
+    background-color: rgb(229, 255, 0);
+}
+
+.realizado p {
+    margin-right: 5px;
+}
+
+.false-class {
+    background-color: red;
+    margin-left: 5px;
+}
+
+.realizado {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    border-radius: 100%;
+}
+
+td .data-realizado {
+    height: 100%;
+    display: flex;
+    align-items: stretch; 
+}
+
+.legenda-guia {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.legenda-guia p:first-of-type {
+    margin-right: 10px;
+}
+
+caption {
+    padding-top: 2vh !important;
+    /* display: flex; */
+    /* width: 100%; */
+}
+caption div {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+caption div img {
+    padding: 0 0 5px 10px;
+}
+
+.mytable{
+    margin-top: 2vh !important;
+}
+
+#popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    z-index: 1000;
+}
+
+#popup-content {
+    max-height: 300px;
+    overflow-y: auto;
+    color: black;
+}
+
+#popup-content p {
+    height: 5px;
+}
+
+#close-popup {
+    float: right;
+    filter: invert(1);
+}
+
+.open-popup {
+    font-size: 11px;
+    height: 25px;
+    padding: 1px 5px;
+}
+
+.checkbox { 
+    display: none; 
+}
+
+.edit-button { 
+    display: none;
+}
+.edit-btn-container {
+    /* display: flex; */
+    text-align: right;
+    padding: 5px 5px;
+    /* justify-content: flex-end */
+}
+.show-edit-btn {
+    margin: 0 !important; 
+    background-color: #cccccc00;
+}
+
+.edit-button {
+    padding: 0px 5px;
+    color: inherit;
+    text-decoration: none;
+    background: var(--verde-i);
+    border-radius: 3px;
+    font-size: 11px;
+    height: 25px;
+    vertical-align: middle;
+    line-height: 25px;
+}
+.edit {
+    filter: invert(1);
+}
+
+.imagens_piloto {
+    width: 200px;
+}
+
+
+/* pop up */
+.popup {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.8); /* Black background with transparency */
+}
+
+.popup-content {
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    width: 80%; /* Could be more or less, depending on screen size */
+    text-align: center;
+}
+
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.showImageButton {
+    height: auto;
+    padding: 10px 15px ;
+    font-size: 12px;
+}
+/* pop imagens */
+.modal {
+    display: none;  /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black with opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+@media screen and (max-width: 900px) {
+    .list-container {
+        overflow-x: auto;
+        padding: 0 15px 70px;
+    }
+    table, tr, td {
+        font-size: 10px !important;
+    }
+
+    .open-popup {
+        font-size: 9px;
+    }
+
+    #popup-content {
+        font-size: 9px;
+    }
+
+    #popup {
+        position: absolute;
+    }
+}

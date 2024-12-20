@@ -1,0 +1,40 @@
+{% extends "page_r2.html" %}
+{% load static %}
+
+{% block extra_css_r2 %}
+    <link rel="stylesheet" href="{% static 'css/style_x_list.css' %}">
+{% endblock %}
+
+{% block main_r2 %}
+
+<div class="list-container">
+    <div class="table-container">
+    <table class="mytable">
+        <caption>
+            Produtos Cadastrados
+          </caption>
+        <tr>
+            <th>Id</th>
+            <th>Nome Comercial</th>
+            <th>Grupo de Produto</th>
+            <th>Princípio Ativo</th>
+            <th>Dosagem</th>
+            <th>Taxa de Aplicação</th>
+            <th>Observações</th>
+        </tr>
+        {% for product in product_list %}
+        <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.nome_comercial }}</td>
+            <td>{{ product.grupo_produto }}</td>
+            <td>{{ product.principio_ativo }}</td>
+            <td>{{ product.dosagem }} L/ha</td>
+            <td>{{ product.taxa_aplicacao }} L</td>
+            <td>{{ product.observacao | default:"" }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,386 @@
+/* ############ index de conteudos ################## */
+
+    /* html, body, ::root, variaveis de cores */
+    /* bg image         - estilo da imagem de fundo */
+    /* titulo           - */
+    /* inputs           - labels, inputs, selects */
+    /* botoes           - botoes, input[type="submit"] */
+    /* mensagens        - mensagens de erro e sucesso apos submissao dos formularios */
+    /* tabelas          - tabelas das paginas relatorio */
+    /* containers       - containers de formulario, grid-container */
+    /* paginacao        -                     */
+    /* responsividade   - media queries */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+}
+
+html, body {
+    height: 100%;
+    width: 100vw;
+    margin: 0;
+    overflow: hidden;
+    font-family: "Work Sans", sans-serif !important; 
+    color: white !important; 
+}
+
+:root {
+    --verde-i: rgba(14, 183, 53, 1);
+    --verde-ii: rgba(76, 175, 80, 1);
+}
+
+/* bg image */
+.bg-img {
+    min-height: 100%;
+    min-width: 1024px;     
+    width: 100vw;
+    height: auto;   
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* titulo */
+.title {
+    font-size: 24px;
+    font-family: Work Sans, sans-serif;
+    margin: 10px auto 30px;
+}
+
+/* inputs */
+label {
+    font-size: 13px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    text-align: left;
+}
+
+.inputs {
+    width: 80%;
+    height: 49px;
+    padding: 10px 20px;
+    margin: 0 auto;
+    border: 2px solid var(--verde-ii);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.0); 
+    font-size: 14px;
+    font-weight: 400;  
+    color: white;
+}
+.inputs-container {
+    display: flex;
+    flex-direction: column;
+}
+/* cor do input quando autofill e selecionado */
+input:-webkit-autofill {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: text;
+}
+
+/* estilo do calendario do input[type="date"] */
+::-webkit-calendar-picker-indicator {
+    background-color: #ffffff;
+    color: #ffffff;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+select {
+    width: 80%;
+    height: 49px;
+    padding: 10px 20px;
+    margin: 0px auto;
+    background-color: #04330F;
+    border: 2px solid var(--verde-ii);
+    border-radius: 10px;
+    color: white;
+}
+ 
+select > option {
+    background-color: #04330F;;
+}
+
+/* botoes */
+button, input[type="submit"] {
+    height: 49px;
+    padding: 8px 22px;
+    margin: 0 auto;
+    text-align: center;
+    text-decoration: none;
+    background: var(--verde-ii);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    color: white;
+    font-size: 15px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+                0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+                0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
+
+/* mensagens de sucesso e erro */
+.message {
+    display: flex;
+    flex: 0 0 auto; /* Prevent items from stretching */
+    justify-content: space-between;
+    align-items: center;
+    width: 45vw;
+    background: var(--verde-i);
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 20px auto; 
+}
+
+/* tabelas */
+table {
+    width: 90%;
+    margin: auto !important;
+    border-collapse: collapse !important;
+    color: white !important;
+    
+}
+
+.mytable {
+    /* margin-top: 5vh !important;  */
+}
+
+caption {
+    caption-side: top !important;
+    font-size: 21px !important;
+    font-weight: bold !important;
+    padding: 5vh 0px 20px ;
+    color: white !important;
+}
+
+td{
+    padding: 21px 5px;
+    border-bottom: 1px solid rgb(255, 255, 255) !important;
+    font-size: 14px;
+    height: 100%;
+    vertical-align: top; 
+}
+
+th{
+    text-align: left;
+    padding: 21px 0px;
+}
+
+.table-container {
+    height: fit-content;
+}
+/* containers */
+.form-container {
+    width: 45vw;
+    height: auto;
+    margin: auto;
+    padding: 10px 0 50px;
+    border: solid 3px var(--verde-i);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    column-gap: 10px;
+    background: rgba(0, 0, 0, .2);
+}
+
+.form-container-one-col {
+    width: 30vw !important;
+}
+
+/* grid com duas colunas */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    width: 100%;
+}
+
+/* paginacao */
+.pagination .step-links {
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.pagination .dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    /* background: #888; */
+    background: linear-gradient(180deg, #2C2E2F 0%, #404142 100%); /*Default dot color*/
+    border-radius: 50%;
+    margin: 0 3px;
+    text-decoration: none;
+}
+
+.pagination .dot:hover {
+    background: linear-gradient(180deg, #56595c 0%, #5d5d60 100%);; /* Hover color */
+}
+
+.pagination .dot.active {
+    background: linear-gradient(180deg, #B7DD18 0%, #4B9800 100%); /* Active dot color */
+}
+
+.pagination a {
+    color: #B7DD18;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    text-decoration: underline;
+}
+
+/* estilo para form as paragraf */
+form p {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 5px;
+}
+
+form p label {
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+}
+
+/* estilo para formularios com numero impar de inputs com duas colunas */
+/* ultimo elemento ocupa as duas colunas e o input tem width 90% */
+.form-odd p:last-of-type {
+    width: 100%;
+    grid-column: 1 / span 2; 
+}
+
+.form-odd p:last-of-type input{
+    width: 90%;    
+}
+
+/* botao */
+.form-odd > :last-child {
+    width: 90%;
+    grid-column: 1 / span 2;
+}
+
+/* responsividade */
+@media screen and (max-width: 900px) {
+
+    body {
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+
+    .nav {
+        width: 100vw !important;
+        height: 100vh;
+        display: none;
+        float: right;
+        position: absolute;
+        z-index: 1;
+        text-align: center;
+        grid-row: 2;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-odd p:last-of-type {
+        width: 100%;
+    }
+    
+    .form-odd p:last-of-type input{
+        width: 80%;    
+    }
+    
+    /* botao */
+    .form-odd > :last-child {
+        width: 80%;
+    }
+
+    .btn-pilot {
+        width: 80%;
+    }
+
+    label {
+        padding: 0px 0px 5px 60px;
+    } 
+    
+    .main-block {
+        width: 100vw;
+        grid-column: 1/ span 2;
+    }
+    .form-container {
+        width: 60vw;
+        margin: 3vh auto;
+        padding-bottom: 30px;
+    }
+    .form-container-one-col {
+        width: 60vw !important;
+    }
+    .grid-container {
+        display: flex;
+        flex-direction: column;
+    }
+    .mytable{
+        width: 100%;
+    }
+    .mytable th, .mytable td {
+        padding: 8px 12px;
+    }
+    .mytable caption {
+        padding: 5vh 12px 20px !important;
+        text-align: left;
+    }
+} 
+
+@media screen and (max-width: 700px) {
+    body {
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+    
+    .nav {
+        width: 100vw !important;
+        height: 100vh;
+        display: none;
+        float: right;
+        position: absolute;
+        z-index: 1;
+        text-align: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .btn-pilot {
+        width: 80%;
+    }
+
+    label {
+        padding-left: 50px;
+    }
+    .form-container {
+        width: 80vw;
+    }
+    .form-container-one-col {
+        width: 80vw !important;
+    }
+    .message {
+        width: 80vw;
+    }
+}

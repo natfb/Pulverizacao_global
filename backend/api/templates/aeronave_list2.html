@@ -1,0 +1,40 @@
+{% extends "page_r2.html" %}
+{% load static %}
+
+{% block extra_css_r2 %}
+    <link rel="stylesheet" href="{% static 'css/style_x_list.css' %}">
+{% endblock %}
+
+{% block main_r2 %}
+
+<div class="list-container">
+    <div class="table-container">
+    {% if aero_info %}
+    <table class="mytable-aero">
+        <caption>
+            Aeronaves Cadastradas
+        </caption>
+        <tr>
+            <th>Código da Aeronave</th>
+            <th>Modelo</th>
+            <th>Fabricante</th>
+            <th>Capacidade de Carga</th>
+        </tr>
+        {% for aeronave in aero_info %}
+            <tr>
+                <td>{{ aeronave.id }}</td>
+                <td>{{ aeronave.model }}</td>
+                <td>{{ aeronave.manufacturer }}</td>
+                <td>{{ aeronave.capacity }} litros</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>Nenhuma aeronave resgistrada.</p>
+    </table>
+    {% endif %}
+    </div>
+</div>
+
+      
+{% endblock %}

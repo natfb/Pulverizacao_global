@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Drones</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;@500&family=Work+Sans:ital@0;1&display=swap');
+    </style>
+    <link rel="stylesheet" href="{% static 'css/style_index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+    <div class="container">
+    <image src="{% static 'images/background-pc.jpeg' %}" class="bg-img">
+    {% if messages %}
+        {% for message in messages %}
+            {% if 'msg_index' in message.tags %}
+                <div class="message msg-login">
+                    <image src="{% static 'images/success.png' %}" class="success"></image>
+                    <p>{{ message }}</p>
+                    <image src="{% static 'images/close.png' %}" class="close"></image>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <div class="form-container-login">
+        <image src="{% static 'images/logo.png' %}" class="logo">
+        <form class="form" action="" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field.label_tag }}
+                {{ field }}
+                <br>
+            {% endfor %}
+            
+            <br>
+            <button class="btnlogin" type="submit">LOGIN</button>
+        </form>
+    </div>
+    <!-- <div class="form-container-login">
+        <image src="{% static 'images/logo.png' %}" class="logo">
+        <form class="form" action="" method="POST">
+            {% csrf_token %}
+            <label for="username">Endereço de Email</label>
+            <input class="inputs logininputs" autofocus required type="text" id="username" name="username" value=""><br>
+            <label for="password">Senha</label>
+            <input class="inputs logininputs" required type="password" id="password" name="password"><br><br>
+            <input class="btnlogin" type="submit" value="LOGIN">
+        </form>
+        
+    </div> -->
+    </div>
+    <script src="{% static 'js/script.js'%}"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+{% extends "page_r1.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/style_pilot_registration.css' %}">
+{% endblock %}
+
+{% block main %}
+<div class="container-pilot-reg">
+    {% if messages %}
+        {% for message in messages %}
+            {% if 'msg_pilot' in message.tags %}
+                <div class="message">
+                    <image src="{% static 'images/success.png' %}" class="success"></image>
+                    <p>{{ message }}</p>
+                    <image src="{% static 'images/close.png' %}" class="close"></image>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <div class="form-container">
+    <h1 class="title">Cadastrar Piloto</h1>
+    <form id="myform" class="grid-container" action="{% if pk %}{% url 'cadastro_piloto_edit' pk=pk %}{% else %}{% url 'cadastro_piloto' %}{% endif %}" method="POST">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <p>
+                {{ field.label_tag }}
+                {{ field }}
+            </p>
+        {% endfor %}
+       
+        <input type="hidden" name="is_active_hidden" id="is_active_hidden" value="false">
+        <!-- <div class="coluna-1">
+            <div class="input-container">
+                <label for="name">Nome Completo *</label><br>
+                <input class="inputs" autofocus required type="text" id="name" name="name" value="{{ name }}"><br>
+            </div>
+            <div class="input-container">
+                <label for="cpf">CPF *</label><br>
+                <input class="inputs" required type="" id="cpf" name="cpf" value="{{cpf}}"><br>
+            </div>
+            <div class="input-container">
+                <label for="birth_date">Data de Nascimento *</label><br>
+                <input class="inputs" required type="date" id="birth_date" name="birth_date" value="{{birth_date}}"><br>
+            </div>
+            <div class="input-container">
+                <label for="address">Endereço *</label><br>
+                <input class="inputs" required type="" id="address" name="address" value="{{address}}"><br>
+            </div>
+        </div>
+        <div class="coluna-2">
+            <div class="input-container">
+                <label for="city">Cidade *</label><br>
+                <input class="inputs" required type="" id="city" name="city" value="{{city}}"><br>
+            </div>
+            <div class="input-container">
+                <label for="state">Estado *</label><br>
+                <input class="inputs" required type="text" id="state" name="state" value="{{state}}"><br>
+            </div>
+            <div class="input-container">
+                <label for="phone_number">Telefone *</label><br>
+                <input class="inputs" required type="" id="phone_number" name="phone_number" value="{{phone_number}}"><br>
+            </div>
+            <div class="input-container">
+                <label for="hiring_date">Data de Contratação *</label><br>
+                <input class="inputs" required type="date" id="hiring_date" name="hiring_date" value="{{hiring_date}}"><br><br>
+            </div>
+        </div> -->
+        <div class="btn-container">
+            <input class="btn-pilot" type="submit" value="Salvar">
+        </div>
+    </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.9/jquery.inputmask.min.js"></script>
+    <script src="{% static 'js/mask_and_checkbox.js' %}"></script>
+</div>
+{% endblock %}

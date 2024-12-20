@@ -1,0 +1,69 @@
+{% extends "page_r1.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/style_product_registration.css' %}">
+{% endblock %}
+
+{% block main %}
+<div class="container-product-reg">
+{% if messages %}
+        {% for message in messages %}
+            {% if 'msg_product' in message.tags %}
+                <div class="message">
+                    <image src="{% static 'images/success.png' %}" class="success"></image>
+                    <p>{{ message }}</p>
+                    <image src="{% static 'images/close.png' %}" class="close"></image>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <div class="form-container">   
+        <h1 class="title">Cadastrar Produto</h1>
+        <form class="form-odd form grid-container" action="{% if pk %}{% url 'cadastro_produto_edit' pk=pk %}{% else %}{% url 'cadastro_produto' %}{% endif %}"  method="post">
+            {% csrf_token %}
+            <!-- <div class="odd-input-number grid-container"> -->
+            {% for field in form %}
+                <p>
+                    {{ field.label_tag }}
+                    {{ field }}
+                </p>
+            {% endfor %}
+            <!-- </div> -->
+            <!-- <div class="coluna-1">
+                <div class="inputs-container">
+                    {{ form.id.label_tag }}  
+                    {{ form.id }}<br>           
+                </div> 
+                <div class="inputs-container">
+                    {{ form.nome_comercial.label_tag }}  
+                    {{ form.nome_comercial }}<br> 
+                </div>         
+                <div class="inputs-container">
+                    {{ form.grupo_produto.label_tag }}
+                    {{ form.grupo_produto }}<br> 
+                </div>
+            </div>
+            <div class="coluna-2">
+                <div class="inputs-container">
+                    {{ form.principio_ativo.label_tag }}
+                    {{ form.principio_ativo }}<br>
+                </div>
+                <div class="inputs-container">
+                    {{ form.dosagem.label_tag }}
+                    {{ form.dosagem }}<br>
+                </div> 
+                <div class="inputs-container">
+                    {{ form.taxa_aplicacao.label_tag }}
+                    {{ form.taxa_aplicacao }}<br> 
+                </div>
+            </div>
+            <div class="inputs-container obs">
+                {{ form.observacao.label_tag }}
+                {{ form.observacao }}<br> 
+            </div> -->
+            <button type="submit" class="btn-product">Salvar</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

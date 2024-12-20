@@ -1,0 +1,53 @@
+{% extends "page_r2.html" %}
+{%load static%}
+
+{% block extra_css_r2 %}
+<link rel="stylesheet" href="{% static 'css/style_x_list.css' %}">
+{% endblock %}
+
+{% block main_r2 %}
+
+<div class="list-container">
+    <div class="table-container">
+    <table class="mytable">
+        <caption>
+            Pilotos Cadastrados
+          </caption>
+        <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Data de Nascimento</th>
+            <th>Endereço</th>
+            <th>Cidade</th>
+            <th>Estado</th>
+            <th>Telefone</th>
+            <th>Data de Contratação</th>
+            <th>Piloto Ativo</th>
+        </tr>
+        {% for pilot in pilot_list %}
+        <tr>
+            <td>{{ pilot.name }}</td>
+            <td>{{ pilot.cpf }}</td>
+            <td>{{ pilot.birth_date | date:"d/m/Y" }}</td>
+            <td>{{ pilot.address }}</td>
+            <td>{{ pilot.city }}</td>
+            <td>{{ pilot.state }}</td>
+            <td>{{ pilot.phone_number }}</td>
+            <td>{{ pilot.hiring_date | date:"d/m/Y"}}</td>
+            <td>
+                {% if pilot.active %}
+                    Sim
+                {% else %}
+                    Não
+                {% endif %}
+            </td>
+            <!-- <td>
+                <input type="checkbox" class="checkbox-activity" {% if pilot.activity %}checked{% endif %}>
+            </td> -->
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+</div>
+
+{% endblock %}
