@@ -92,10 +92,13 @@ def pilot_registration(request, pk=None):
         action = 'added'
 
     if request.method == 'POST':
-        if "delete" in request.POST:  # Delete button was clicked
-            instance.delete()
-            return redirect(pilot_list)
-            # return JsonResponse({"message": "Deleted successfully", "redirect": "/"}, status=200)
+        if "delete" in request.POST:
+            try:  
+                instance.delete()
+                return redirect(pilot_list)
+            except IntegrityError:
+                messages.error(request, "Não é possível excluir este piloto porque ele está sendo referenciada por outros objetos.", extra_tags='msg_pilot')
+                return redirect (pilot_registration)    
         
         name = request.POST['name']
         cpf = request.POST['cpf']
@@ -351,10 +354,14 @@ def product_registration(request, pk=None):
         action = 'added'
 
     if request.method == 'POST':
-        if "delete" in request.POST:  
-            instance.delete()
-            return redirect(product_list)
-        
+        if "delete" in request.POST: 
+            try: 
+                instance.delete()
+                return redirect(product_list)
+            except IntegrityError:
+                messages.error(request, "Não é possível excluir este produto porque ele está sendo referenciada por outros objetos.", extra_tags='msg_product')
+                return redirect (product_registration)
+    
         form = ProductsForm(request.POST, instance=instance)
         if form.is_valid():
             form.save()
@@ -405,9 +412,13 @@ def aeronave_registration(request, pk=None):
         action = 'added'
 
     if request.method == 'POST':
-        if "delete" in request.POST:  
-            instance.delete()
-            return redirect(aeronave_list)
+        if "delete" in request.POST:
+            try:  
+                instance.delete()
+                return redirect(aeronave_list)
+            except IntegrityError:
+                messages.error(request, "Não é possível excluir esta aeronave porque ela está sendo referenciada por outros objetos.", extra_tags='msg_aeronave')
+                return redirect (aeronave_registration)
         
         form = AeronaveForm(request.POST, instance=instance)
         if form.is_valid():
@@ -496,10 +507,14 @@ def guia_aplicacao(request, id=None):
             try:
                 instance = Guia_aplicacao_supervisor.objects.get(pk=pk)
 
-                if "delete" in request.POST:  
-                    instance.delete()
-                    return redirect(guia_aplicacao_list)
-
+                if "delete" in request.POST: 
+                    try: 
+                        instance.delete()
+                        return redirect(guia_aplicacao_list)
+                    except IntegrityError:
+                        messages.error(request, "Não é possível excluir esta fazenda porque ela está sendo referenciada por outros objetos.", extra_tags='msg_guia')
+                        return redirect (farm_registration)
+            
                 form = GuiaAplicacaoSupForm(request.POST, instance=instance)
                 action = 'edited'
                 item = Guia_aplicacao_supervisor.objects.get(pk=id)
@@ -603,10 +618,14 @@ def guia_aplicacao_piloto(request, pk=None):
         form = GuiaAplicacaoPilotoForm(request.POST)
 
     if request.method == 'POST':
-        if "delete" in request.POST:  
-            instance.delete()
-            return redirect(guia_piloto_list)
-        
+        if "delete" in request.POST:
+            try:  
+                instance.delete()
+                return redirect(guia_piloto_list)
+            except IntegrityError:
+                messages.error(request, "Não é possível excluir esta guia porque ela está sendo referenciada por outros objetos.", extra_tags='msg_guia_piloto')
+                return redirect (guia_aplicacao_piloto)
+
         if form.is_valid():
             guia_id = request.POST['id_aplicacao']
 

@@ -134,7 +134,7 @@ class Pilot(models.Model):
        
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.PROTECT)
     role = models.CharField(max_length=10)
     cpf = models.CharField(max_length=14, null=True, blank=True)
 
@@ -174,7 +174,7 @@ class Farm(models.Model):
 
 
 class Talhao(models.Model):
-    farm = models.ForeignKey(Farm, on_delete=models.CASCADE, related_name='children')
+    farm = models.ForeignKey(Farm, on_delete=models.PROTECT, related_name='children')
     id_talhao = models.BigIntegerField(primary_key=True)
     area = models.FloatField()
     technician = models.TextField(null=True, blank=True)
@@ -237,8 +237,8 @@ class Aeronave(models.Model):
 
 class Receita(models.Model):
     id_receita = models.AutoField(primary_key=True)
-    id_produto = models.ForeignKey(Product, on_delete=models.CASCADE)
-    id_guia_sup = models.ForeignKey('Guia_aplicacao_supervisor', on_delete=models.CASCADE)
+    id_produto = models.ForeignKey(Product, on_delete=models.PROTECT)
+    id_guia_sup = models.ForeignKey('Guia_aplicacao_supervisor', on_delete=models.PROTECT)
     dosagem = models.FloatField()
     taxa_aplicacao = models.FloatField()
     
@@ -268,7 +268,7 @@ class Guia_aplicacao_supervisor(models.Model):
     id_receita = models.ManyToManyField(Product, through='Receita')
     id_responsavel_global = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='id_responsavel_global', blank=True, null=True)
     realizado = models.BooleanField(default=False)
-    id_piloto = models.ForeignKey(Pilot, on_delete=models.CASCADE, default='')
+    id_piloto = models.ForeignKey(Pilot, on_delete=models.PROTECT, default='')
 
     # Store selected children as a comma-separated string
     def set_talhao(self, child_ids):
@@ -284,7 +284,7 @@ class Guia_aplicacao_supervisor(models.Model):
 
 
 class Guia_aplicacao_piloto(models.Model):
-    id_aplicacao = models.OneToOneField(Guia_aplicacao_supervisor, on_delete=models.CASCADE, default='', primary_key=True)
+    id_aplicacao = models.OneToOneField(Guia_aplicacao_supervisor, on_delete=models.PROTECT, default='', primary_key=True)
     data_realizacao = models.DateTimeField(blank=True, null=True)
     # aeronave = models.ForeignKey(Aeronave, null=True, on_delete=models.SET_NULL)
     bicos = models.IntegerField(blank=True, null=True)
@@ -303,28 +303,28 @@ class Guia_aplicacao_piloto(models.Model):
 
 class Foto_panoramica(models.Model):
     id_foto = models.AutoField(primary_key=True)
-    id_aplicacao = models.ForeignKey(Guia_aplicacao_piloto, on_delete=models.CASCADE)
+    id_aplicacao = models.ForeignKey(Guia_aplicacao_piloto, on_delete=models.PROTECT)
     foto = models.BinaryField(editable=True)
     class Meta:
         db_table = 'foto_panoramica'
 
 class Foto_trajeto(models.Model):
     id_foto = models.AutoField(primary_key=True)
-    id_aplicacao = models.ForeignKey(Guia_aplicacao_piloto, on_delete=models.CASCADE)
+    id_aplicacao = models.ForeignKey(Guia_aplicacao_piloto, on_delete=models.PROTECT)
     foto = models.BinaryField(editable=True)
     class Meta:
         db_table = 'foto_trajeto'
 
 class Foto_cond_atmosferica(models.Model):
     id_foto = models.AutoField(primary_key=True)
-    id_aplicacao = models.ForeignKey(Guia_aplicacao_piloto, on_delete=models.CASCADE)
+    id_aplicacao = models.ForeignKey(Guia_aplicacao_piloto, on_delete=models.PROTECT)
     foto = models.BinaryField(editable=True, null=True, blank=True)
     class Meta:
         db_table = 'foto_cond_atmosferica'
 
 class Foto_produto(models.Model):
     id_foto = models.AutoField(primary_key=True)
-    id_aplicacao = models.ForeignKey(Guia_aplicacao_piloto, on_delete=models.CASCADE)
+    id_aplicacao = models.ForeignKey(Guia_aplicacao_piloto, on_delete=models.PROTECT)
     foto = models.BinaryField(editable=True)
     class Meta:
         db_table = 'foto_produto'
