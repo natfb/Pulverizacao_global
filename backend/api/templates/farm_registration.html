@@ -30,19 +30,10 @@
                         {{ field }}
                     </p>
                 {% endfor %}
-        <!-- <h1 class="title">Cadastrar Fazenda</h1>
-                <label for="id_farm">Código da Fazenda *</label>
-                <input class="inputs" autofocus type="text" name="id_farm" id="id_farm" required><br>
-                <label for="name">Nome da Fazenda *</label>
-                <input class="inputs" type="text" name="name" id="name" required><br>
-                <label for="owner">Grupo/Proprietário *</label>
-                <input class="inputs" type="text" name="owner" id="owner" required><br>
-                <label for="city">Cidade *</label>
-                <input class="inputs" type="text" name="city" id="city" required><br>
-                <label for="state">Estado *</label>
-                <input class="inputs" type="text" name="state" id="state" required><br> -->
+        
                 <br>
                 <button class="btn-farm" type="submit" name="submit-fazenda" value="Cadastrar">Salvar<br></button>
+                <input class="btn-pilot delete-btn btn-80" type="submit" id="delete-btn" name="deleteF" value="Excluir">
             </form>
             
             <form class="form-farm-talhao" action="{% if idt %}{% url 'cadastro_fazenda_edit_t' idt %}{% else %}{% url 'cadastro_fazenda' %}{% endif %}" method="POST">
@@ -58,10 +49,7 @@
                     <option value="{{ item.id_farm }}">{{ item.id_farm }} - {{ item.name }}</option>
                     {% else %}
                         <option value="">Selecione a Fazenda</option>
-                        <!-- {% if farm_id.id is not None %}
-                            <option value="{{ farm_id.id }}">{{ farm_id.id }} - {{ farm_id.name }}</option>
-                        {% else %}
-                        {% endif %} -->
+                    
                         {% for info in farm_info %}
                             <option value="{{ info.id_farm }}">{{ info.id_farm }} - {{ info.name }}</option>
                         {% empty %}
@@ -83,35 +71,13 @@
                     <input class="inputs invisible-input" disabled="disabled" id="invisible-input">
                 </p>
                 <br>
-                <!-- <p>
-                <label for="id_talhao">Código do Talhão *</label>
-                <input class="inputs" type="number" name="id_talhao" id="id_talhao" required>
-                </p>
-                <p>
-                <label for="area">Área (em ha) *</label>
-                <input class="inputs" type="number" step="any" name="area" id="area" required>
-                </p>
-                <p>
-                <label for="cultura">Cultura</label>
-                <select id="cultura" name="cultura">
-                    <option value="">Selecione a Cultura</option>
-                    <option value="soja">Soja</option>
-                    <option value="milho">Milho</option>
-                    <option value="cana-de-açucar">Cana-de-açucar</option>
-                    <option value="algodao">Algodão</option>
-                </select>
-                </p>
-                <p>
-                <label for="technician">Responsável de Área</label>
-                <input class="inputs" type="text" name="technician" id="technician">
-                </p> -->
                 
                 <input class="btn-farm" type="submit" name="submit-talhao" value="Salvar">
+                <input class="btn-pilot delete-btn btn-80" type="submit" id="delete-btn2" name="deleteT" value="Excluir">
             </form>
         </div>
     </div>
 </div>
-<script src="{% static 'js/dynamic_fields_farm.js' %}">
-    
-</script>
+<script src="{% static 'js/dynamic_fields_farm.js' %}"></script>
+<script src="{% static 'js/delete-button.js' %}"></script>
 {% endblock %}

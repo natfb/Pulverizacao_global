@@ -38,7 +38,8 @@ h3 {
 .guia-piloto {
     /* width: 90%; */
     display: none !important;
-    margin: auto;    
+    margin: auto;  
+    margin-bottom: 40px;  
 }
 
 .guia-piloto p:first-of-type {
@@ -59,7 +60,7 @@ h3 {
     width: 90%;
     grid-column: 1 / span 2;
     margin: 0 auto 20px;
-    margin: 20px auto 40px;
+    margin: 20px auto 0;
 }
 .btn-show-container {
     width: 100%;

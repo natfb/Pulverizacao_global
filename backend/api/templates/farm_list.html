@@ -32,7 +32,7 @@
                 <td>{{ farm.farm_info.owner }}</td>
                 <td>{{ farm.farm_info.city }}</td>
                 <td>{{ farm.farm_info.state }}</td>
-                <td>{{ farm.total_area }}</td>
+                <td>{{ farm.total_area }} ha</td>
                 <td><a class="edit-button" href="{% url 'cadastro_fazenda_edit_f' farm.farm_info.id_farm %}">Editar</a></td>
             </tr>
         {% endfor %}

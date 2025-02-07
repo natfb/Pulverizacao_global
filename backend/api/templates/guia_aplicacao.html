@@ -21,7 +21,7 @@
     {% endif %}
     <div class="form-container">
         <h1 class="title">Guia de Aplicação</h1>
-        <form id="" class="grid-container" action="{% url 'cadastro_guia' %}" method="POST">
+        <form id="" class="grid-container form-guia" action="{% url 'cadastro_guia' %}" method="POST">
             {% csrf_token %}
             {% for field in form %} 
                 {% if field.name != 'talhao' %}         
@@ -34,9 +34,7 @@
             {{ formReceita.management_form }}
             <div id="formset-container">
                 {% for form in formReceita %}
-                       
-                        {{ form }}
-                    
+                    {{ form }}
                 {% endfor %}
             </div>
             <div id="receita-formset">
@@ -51,10 +49,12 @@
             </div>
             <input type="hidden" name="cod_aplicacao" id="cod_aplicacao" value="{{ id_guia }}">
             <button type="submit" class="btn-guia">Salvar</button>
+            <input class="btn-pilot delete-btn btn-90 btn-span" type="submit" id="delete-btn" name="delete" value="Excluir">
         </form>
     </div>
 </div>
 <script src="{% static 'js/dynamic_fields_guia_sup.js' %}"></script>
+<script src="{% static 'js/delete-button.js' %}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
     
@@ -197,7 +197,6 @@ function addProduto() {
     formsetContainer.innerHTML = '';
     
     for (let i = 0; i < numberOfSelectedProducts; i++) {
-        console.log(i)
         const form = document.createElement('div');
         form.classList.add('product-form');
         form.innerHTML = `
@@ -208,21 +207,21 @@ function addProduto() {
             </select>`
             
             if(i == 0) {
-                form.innerHTML += `<label class="label-product">Dosagem (L/ha)
+                form.innerHTML += `<div class="conteiner-inputs-receita"><label class="label-product">Dosagem (L/ha)</label>
                     <input type="number" class="inputs" name="form-${i}-dosagem">
-                    </label>`
+                    </div>`
             } else {
-                form.innerHTML += `<input type="number" class="inputs" name="form-${i}-dosagem">`
+                form.innerHTML += `<div class="conteiner-inputs-receita"><input type="number" class="inputs" name="form-${i}-dosagem"></div>`
             }
                 
             
             if(i == 0) {
-            form.innerHTML += `<label class="label-product">Taxa de Aplicação (L)
+            form.innerHTML += `<div class="conteiner-inputs-receita"><label class="label-product">Taxa de Aplicação (L)</label>
                 <input type="number" class="inputs" name="form-${i}-taxa_aplicacao">
-                </label>`
+                <div>`
                 
             } else {
-                form.innerHTML += `<input type="number" class="inputs" name="form-${i}-taxa_aplicacao">`
+                form.innerHTML += `<div class="conteiner-inputs-receita"><input type="number" class="inputs" name="form-${i}-taxa_aplicacao"></div>`
             }
             form.innerHTML += `</div>`
         

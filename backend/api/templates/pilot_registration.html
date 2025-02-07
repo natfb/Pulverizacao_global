@@ -31,49 +31,16 @@
         {% endfor %}
        
         <input type="hidden" name="is_active_hidden" id="is_active_hidden" value="false">
-        <!-- <div class="coluna-1">
-            <div class="input-container">
-                <label for="name">Nome Completo *</label><br>
-                <input class="inputs" autofocus required type="text" id="name" name="name" value="{{ name }}"><br>
-            </div>
-            <div class="input-container">
-                <label for="cpf">CPF *</label><br>
-                <input class="inputs" required type="" id="cpf" name="cpf" value="{{cpf}}"><br>
-            </div>
-            <div class="input-container">
-                <label for="birth_date">Data de Nascimento *</label><br>
-                <input class="inputs" required type="date" id="birth_date" name="birth_date" value="{{birth_date}}"><br>
-            </div>
-            <div class="input-container">
-                <label for="address">Endereço *</label><br>
-                <input class="inputs" required type="" id="address" name="address" value="{{address}}"><br>
-            </div>
-        </div>
-        <div class="coluna-2">
-            <div class="input-container">
-                <label for="city">Cidade *</label><br>
-                <input class="inputs" required type="" id="city" name="city" value="{{city}}"><br>
-            </div>
-            <div class="input-container">
-                <label for="state">Estado *</label><br>
-                <input class="inputs" required type="text" id="state" name="state" value="{{state}}"><br>
-            </div>
-            <div class="input-container">
-                <label for="phone_number">Telefone *</label><br>
-                <input class="inputs" required type="" id="phone_number" name="phone_number" value="{{phone_number}}"><br>
-            </div>
-            <div class="input-container">
-                <label for="hiring_date">Data de Contratação *</label><br>
-                <input class="inputs" required type="date" id="hiring_date" name="hiring_date" value="{{hiring_date}}"><br><br>
-            </div>
-        </div> -->
+
         <div class="btn-container">
             <input class="btn-pilot" type="submit" value="Salvar">
+            <input class="btn-pilot delete-btn btn-90" type="submit" id="delete-btn" name="delete" value="Excluir">
         </div>
     </form>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.9/jquery.inputmask.min.js"></script>
     <script src="{% static 'js/mask_and_checkbox.js' %}"></script>
+    <script src="{% static 'js/delete-button.js' %}"></script>
 </div>
 {% endblock %}

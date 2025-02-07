@@ -10,6 +10,7 @@ import ast
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden, HttpResponseRedirect
+from django.db import IntegrityError
 
 import base64
 from django.core.files.base import ContentFile
@@ -91,6 +92,11 @@ def pilot_registration(request, pk=None):
         action = 'added'
 
     if request.method == 'POST':
+        if "delete" in request.POST:  # Delete button was clicked
+            instance.delete()
+            return redirect(pilot_list)
+            # return JsonResponse({"message": "Deleted successfully", "redirect": "/"}, status=200)
+        
         name = request.POST['name']
         cpf = request.POST['cpf']
         birth_date = request.POST['birth_date']
@@ -175,6 +181,17 @@ def farm_registration(request, idt=None, idf=None):
         actionT = 'added'
         
     if request.method == 'POST':
+        if "deleteF" in request.POST: 
+            try:
+                instanceF.delete()
+                return redirect(farm_list)
+            except IntegrityError:
+                messages.error(request, "Não é possível excluir esta fazenda porque ela está sendo referenciada por outros objetos.", extra_tags='msg_farm')
+                return redirect (farm_registration)
+        if "deleteT" in request.POST:  
+            instanceT.delete()
+            return redirect(farm_talhao_list)
+        
         if 'submit-fazenda' in request.POST:
             farm_form = FarmForm(request.POST, instance=instanceF)
             if farm_form.is_valid():
@@ -228,11 +245,10 @@ def farm_list(request):
         children = Talhao.objects.filter(farm_id=parent)
         total_value = children.aggregate(total=Sum('area'))['total'] or 0  # Calculate the sum
 
-        if children.exists():
-            farm_list.append({
-                'farm_info': parent,
-                'total_area': total_value,
-            })
+        farm_list.append({
+            'farm_info': parent,
+            'total_area': total_value,
+        })
 
     context = {
         'farm_list': farm_list,
@@ -335,6 +351,10 @@ def product_registration(request, pk=None):
         action = 'added'
 
     if request.method == 'POST':
+        if "delete" in request.POST:  
+            instance.delete()
+            return redirect(product_list)
+        
         form = ProductsForm(request.POST, instance=instance)
         if form.is_valid():
             form.save()
@@ -385,6 +405,10 @@ def aeronave_registration(request, pk=None):
         action = 'added'
 
     if request.method == 'POST':
+        if "delete" in request.POST:  
+            instance.delete()
+            return redirect(aeronave_list)
+        
         form = AeronaveForm(request.POST, instance=instance)
         if form.is_valid():
             form.save()
@@ -454,7 +478,7 @@ def guia_aplicacao(request, id=None):
             'serialized_data': talhoes,
             'id_guia': int(item.cod_aplicacao),
         }
-            
+        print("a1",instance)    
     else:
         form = GuiaAplicacaoSupForm(session_username=username)
         formset = ReceitaFormSet(queryset=Receita.objects.none())
@@ -463,13 +487,19 @@ def guia_aplicacao(request, id=None):
             'form': form,
             'formReceita': formset,
         }
-    
-    if request.method == 'POST':
+        print("a",instance) 
+
+    if request.method == 'POST':    
         pk = request.POST.get('cod_aplicacao')  
         if pk:
             
             try:
                 instance = Guia_aplicacao_supervisor.objects.get(pk=pk)
+
+                if "delete" in request.POST:  
+                    instance.delete()
+                    return redirect(guia_aplicacao_list)
+
                 form = GuiaAplicacaoSupForm(request.POST, instance=instance)
                 action = 'edited'
                 item = Guia_aplicacao_supervisor.objects.get(pk=id)
@@ -573,6 +603,10 @@ def guia_aplicacao_piloto(request, pk=None):
         form = GuiaAplicacaoPilotoForm(request.POST)
 
     if request.method == 'POST':
+        if "delete" in request.POST:  
+            instance.delete()
+            return redirect(guia_piloto_list)
+        
         if form.is_valid():
             guia_id = request.POST['id_aplicacao']
 

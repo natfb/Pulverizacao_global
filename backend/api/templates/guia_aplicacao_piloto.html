@@ -133,11 +133,13 @@
             <input type="hidden" name="images_to_delete_traj" id="images_to_delete_traj">
             <input type="hidden" name="id_aplicacao" value="{{ guia.cod_aplicacao }}">
             <input type="hidden" name="realizada" value="True">
-            <button class="btn-guia-piloto" type="submit">Concluída</button> 
+            <button class="btn-guia-piloto" type="submit">Concluída</button>
+            <input class="btn-pilot delete-btn" type="submit" id="delete-btn" name="delete" value="Excluir"> 
         </form>
         </div>
         
     {% endfor %}   
 </div>
 <script src="{% static 'js/image_gallery_guia_pil.js' %}"></script>
+<script src="{% static 'js/delete-button.js' %}"></script>
 {% endblock %}

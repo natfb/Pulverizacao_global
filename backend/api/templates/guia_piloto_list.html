@@ -42,7 +42,7 @@
                 <td>{{ info.rajada_vento | default:''}}</td>
                 <td><button class="showImageButton" onclick="showImages({{ info.id_aplicacao.cod_aplicacao }})">Ver Imagens</button></td>
                 
-                {% if not info.guia.id_aplicacao.realizado %}
+                {% if not info.id_aplicacao.realizado %}
                     <td><a class="edit-button" href="{% url 'edit_guia_piloto' info.id_aplicacao.cod_aplicacao %}">Editar</a></td>
                 {% else %}
                     <td><a style="visibility:hidden;" aria-disabled="true" class="edit-button" href="#">N editar</a></td>

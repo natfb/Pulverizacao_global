@@ -62,8 +62,10 @@
                 {{ form.observacao.label_tag }}
                 {{ form.observacao }}<br> 
             </div> -->
-            <button type="submit" class="btn-product">Salvar</button>
+            <button type="submit" class="btn-product btn-90">Salvar</button>
+            <input class="btn-pilot delete-btn" type="submit" id="delete-btn" name="delete" value="Excluir">
         </form>
     </div>
 </div>
+<script src="{% static 'js/delete-button.js' %}"></script>
 {% endblock %}

@@ -99,10 +99,11 @@ label {
 }
 
 #receita-formset {
-    width: 90%;
-    grid-column: 1;
+    width: 70%;
+    margin: 0 auto;
+    /* grid-column: 1 ; */
     grid-row: 5;
-    /* grid-column: 1 / span 2;  */
+    grid-column: 1 / span 2; 
 }
 
 .product-form {
@@ -137,20 +138,42 @@ label {
     text-decoration: underline #36d938 3px;
 }
 label.label-product {
-    width: 100%;
+    width: fit-content;
     padding: 0;
     font-size: 11px;
 }
 .product-form input {
-    width: 100% !important;
+    width: 70% !important;
     height: 35px;
-    margin-right: 5px;
+    
 }
 
 .select-edit {
     background-color: transparent;
     border-color: transparent;
     pointer-events: none;
+}
+.produtos {
+    width: 70% !important;
+    height: 70px; 
+    grid-column: 1 / span 2 !important;
+}
+
+.form-guia p:last-of-type {
+    
+    grid-column: 1 / span 2;
+}
+.form-guia p:last-of-type label{
+    margin-left: 55px !important;
+}
+
+.conteiner-inputs-receita {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    
 }
 @media screen and (max-width: 700px) {
     .guia-aplic-container {

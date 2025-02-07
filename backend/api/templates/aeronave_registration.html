@@ -29,7 +29,9 @@
                 </p>
             {% endfor %}
             <button class="btn-aero" type="submit">Salvar</button>
+            <input class="btn-pilot delete-btn btn-80" type="submit" id="delete-btn" name="delete" value="Excluir">
         </form>
     </div>
-</div>  
+</div> 
+<script src="{% static 'js/delete-button.js' %}"></script> 
 {% endblock %}

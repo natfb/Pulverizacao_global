@@ -216,7 +216,7 @@ class GuiaAplicacaoSupForm(forms.ModelForm):
             'talhao': forms.CheckboxSelectMultiple(attrs={'class': 'checkbox-multiple inputs', 'required': 'required', 'name': 'talhao', 'id': 'talhao'}),
             'cultura': forms.Select(attrs={'class': 'inputs', 'required': 'required'}),
             'area_aplicacao': forms.NumberInput(attrs={'class': 'inputs', 'required': 'required', 'id': 'area'}),
-            'id_receita': forms.SelectMultiple(attrs={'class': '', 'required': 'required', 'id': 'produto'}),           
+            'id_receita': forms.SelectMultiple(attrs={'class': 'produtos', 'required': 'required', 'id': 'produto'}),           
         }
 
 class ReceitaForm(forms.ModelForm):

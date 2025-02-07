@@ -115,14 +115,14 @@ function submitForm() {
                             console.log(child)
                             const dia = new Date(child.data_realizacao);
                             popupContent += `<h3>Guia do Piloto</h3>`;
-                            popupContent += `<p>Data de realização: ${dia.toLocaleDateString('pt-BR')}</p>`;
+                            popupContent += `<p>Data de realização: ${dia.toLocaleDateString('pt-BR')} ${dia.toLocaleTimeString('pt-BR')}</p>`;
                             popupContent += `<p>Bicos: ${child.bicos}</p>`;
                             popupContent += `<p>Direção do vento: ${child.direcao_vento}</p>`;
-                            popupContent += `<p>Vazão: ${child.vazao}</p>`;
-                            popupContent += `<p>Altura do voo: ${child.altura_voo}</p>`;
-                            popupContent += `<p>Umidade: ${child.umidade}</p>`;
-                            popupContent += `<p>Temperatura: ${child.temperatura}</p>`;
-                            popupContent += `<p>Rajada de vento: ${child.rajada_vento}</p>`;
+                            popupContent += `<p>Vazão: ${child.vazao} L</p>`;
+                            popupContent += `<p>Altura do voo: ${child.altura_voo} m</p>`;
+                            popupContent += `<p>Umidade: ${child.umidade} %</p>`;
+                            popupContent += `<p>Temperatura: ${child.temperatura} °C</p>`;
+                            popupContent += `<p>Rajada de vento: ${child.rajada_vento} Km/h</p>`;
                             popupContent += `<div id="imageGallery"></div>`
                             
                             imagesPilot(child.id_aplicacao_id)

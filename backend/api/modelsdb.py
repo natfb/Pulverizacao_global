@@ -258,7 +258,7 @@ class Guia_aplicacao_supervisor(models.Model):
 
     cod_aplicacao = models.AutoField(primary_key=True)
     data = models.DateTimeField()
-    id_fazenda = models.ForeignKey(Farm, on_delete=models.CASCADE)
+    id_fazenda = models.ForeignKey(Farm, on_delete=models.PROTECT)
     talhao = models.TextField(default='')
     cultura = models.CharField(
         max_length=50,

@@ -22,8 +22,7 @@
             <th>Nome Comercial</th>
             <th>Grupo de Produto</th>
             <th>Princípio Ativo</th>
-            <th>Dosagem</th>
-            <th>Taxa de Aplicação</th>
+            <th>Dosagem Recomendada</th>
             <th>Observações</th>
         </tr>
         {% for product in product_list %}
@@ -32,8 +31,7 @@
             <td>{{ product.nome_comercial }}</td>
             <td>{{ product.grupo_produto }}</td>
             <td>{{ product.principio_ativo }}</td>
-            <td>{{ product.dosagem }} L/ha</td>
-            <td>{{ product.taxa_aplicacao }} L</td>
+            <td>{{ product.dosagem_recomendada }} L/ha</td>
             <td>{{ product.observacao | default:"" }}</td>
             <td><a class="edit-button" href="{% url 'cadastro_produto_edit' product.id %}">Editar</a></td>
         </tr>
