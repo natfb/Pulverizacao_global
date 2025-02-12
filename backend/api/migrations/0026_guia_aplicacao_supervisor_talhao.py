@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='guia_aplicacao_supervisor',
             name='talhao',
-            field=models.IntegerField(default=''),
+            field=models.TextField(default=''),
         ),
     ]

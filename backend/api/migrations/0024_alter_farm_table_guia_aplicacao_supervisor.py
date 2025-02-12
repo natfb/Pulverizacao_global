@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Guia_aplicacao_supervisor',
             fields=[
-                ('cod_aplicacao', models.CharField(max_length=50, primary_key=True, serialize=False)),
+                ('cod_aplicacao', models.IntegerField(max_length=50, primary_key=True, serialize=False)),
                 ('data', models.DateField(auto_now_add=True)),
                 ('cultura', models.CharField(choices=[('', 'Escolha a cultura'), ('Algodão', 'Algodão'), ('Cana-de-açucar', 'Cana-de-açucar'), ('Milho', 'Milho'), ('Pasto', 'Pasto'), ('Soja', 'Soja')], max_length=50)),
                 ('area_aplicacao', models.FloatField()),
