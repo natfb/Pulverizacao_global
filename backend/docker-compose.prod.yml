@@ -21,7 +21,7 @@ services:
   nginx:
     image: nginx:1.21.3
     ports:
-      - 8001:80
+      - ${APP_EXPOSE_PORT}:80
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./static:/static:ro
