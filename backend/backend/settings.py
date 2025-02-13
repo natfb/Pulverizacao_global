@@ -27,12 +27,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3t=*ym-=e379bn@=f7u@^tjp*%^@6@dn5@0am+wqxvg#r+ah2u'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get("DEBUG", default=0))
 
 ALLOWED_HOSTS = ["*"]
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8001',  # Add the URL you're accessing from
+    'http://127.0.0.1:8001',  # In case you're using localhost or 127.0.0.1
+    'http://localhost:8000',  # Add the URL you're accessing from
+    'http://127.0.0.1:8000',  # In case you're using localhost or 127.0.0.1
+]
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
@@ -147,7 +154,15 @@ LOGOUT_REDIRECT_URL = '/'
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [BASE_DIR / 'api' / 'static']
+ENV = os.getenv('ENV', 'development')
+
+if ENV == 'development':
+    STATICFILES_DIRS = [BASE_DIR / 'api' / 'static']
+else:  # Production settings
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# STATICFILES_DIRS = [BASE_DIR / 'api' / 'static']
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # define login url
 LOGIN_URL = '/'

@@ -13,6 +13,9 @@ ENV PYTHONDONTWRITEBYTECODE=1
 #Prevents Python from buffering stdout and stderr
 ENV PYTHONUNBUFFERED=1 
  
+# Install netcat in production stage (for entrypoint)
+RUN apt-get update && apt-get install -y netcat-openbsd
+
 # Upgrade pip
 RUN pip install --upgrade pip 
  
@@ -40,5 +43,6 @@ EXPOSE 8000
 #ENTRYPOINT ["/app/entrypoint.sh"]
 
 # Run Django’s development server
+RUN chmod +x  /app/entrypoint.prod.sh
 #CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-CMD ["entrypoint.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]

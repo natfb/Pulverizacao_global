@@ -269,7 +269,7 @@ class Guia_aplicacao_supervisor(models.Model):
     id_responsavel_global = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='id_responsavel_global', blank=True, null=True)
     realizado = models.BooleanField(default=False)
     id_piloto = models.ForeignKey(Pilot, on_delete=models.PROTECT, default='')
-
+    cod_solicitacao_voo = models.TextField(blank=True, null=True)
     # Store selected children as a comma-separated string
     def set_talhao(self, child_ids):
         self.talhao = child_ids

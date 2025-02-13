@@ -198,7 +198,7 @@ class GuiaAplicacaoSupForm(forms.ModelForm):
 
     class Meta:
         model = Guia_aplicacao_supervisor
-        fields = ['id_fazenda', 'talhao', 'data', 'id_piloto', 'area_aplicacao', 'cultura', 'id_receita']
+        fields = ['id_fazenda', 'talhao', 'data', 'id_piloto', 'area_aplicacao', 'cultura', 'cod_solicitacao_voo', 'id_receita', ]
 
         labels = {
             'data': 'Data de Aplicação *',
@@ -206,7 +206,9 @@ class GuiaAplicacaoSupForm(forms.ModelForm):
             'id_fazenda': 'Fazenda *',
             'cultura': 'Cultura *',
             'area_aplicacao': 'Área de Aplicação (ha) *',
+            'cod_solicitacao_voo': 'Código de Solicitação de Voo',
             'id_receita': 'Produtos *',
+            
         }
 
         widgets = {
@@ -216,6 +218,7 @@ class GuiaAplicacaoSupForm(forms.ModelForm):
             'talhao': forms.CheckboxSelectMultiple(attrs={'class': 'checkbox-multiple inputs', 'required': 'required', 'name': 'talhao', 'id': 'talhao'}),
             'cultura': forms.Select(attrs={'class': 'inputs', 'required': 'required'}),
             'area_aplicacao': forms.NumberInput(attrs={'class': 'inputs', 'required': 'required', 'id': 'area'}),
+            'cod_solicitacao_voo': forms.TextInput(attrs={'class': 'inputs'}),
             'id_receita': forms.SelectMultiple(attrs={'class': 'produtos', 'required': 'required', 'id': 'produto'}),           
         }
 

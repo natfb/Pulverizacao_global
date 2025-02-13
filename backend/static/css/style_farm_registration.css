@@ -1,0 +1,86 @@
+.container-farm-reg{
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.container-form-farm {
+    width: 45vw;
+    max-width: 70%;
+    margin: auto;
+    padding: 20px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: solid 3px var(--verde-i);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, .2);
+}
+
+.form-farm-talhao {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    color: white;      
+}
+
+.form-farm-talhao div{
+    display: flex;
+    flex-direction: column;  
+    justify-content: space-between; 
+}
+
+.btn-farm {
+    width: 80%;
+}
+
+label {
+    padding-left: 50px;
+}
+
+.container-farm-reg::-webkit-scrollbar {
+    display: none;
+}
+
+.form-farm p, .form-farm-talhao p {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 5px;
+}
+
+.form-farm p label, .form-farm-talhao p label {
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+}
+
+.invisible-input {
+    visibility: hidden;
+}
+
+@media screen and (max-width: 900px) {
+    .form-container {
+        margin: 3vh !important;
+        padding: 30px;
+    }
+    .container-talhao {
+        margin: 3vh 0;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .container-farm-reg {
+        height: 95vh;
+        padding-bottom: 70px;
+    }
+    .invisible-input {
+        display: none;
+    }
+}
